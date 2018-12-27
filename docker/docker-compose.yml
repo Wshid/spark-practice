@@ -1,0 +1,32 @@
+version: '3.1' 
+services:
+  node1:
+    image: spark-practice
+    container_name: spark-node1
+    hostname: spark-node1 
+    command: bash
+    tty: true
+    ports:
+      - 8082:8082
+      - 18080:18080
+    # environment:
+    #   - 
+    ulimits:
+      memlock:
+        soft: -1 #ulimits soft=-1
+        hard: -1
+    volumes:
+     - ~/Workspace/spark-practice/workspace/spark-node1:/root/workspace
+    networks:
+      kafkanet:
+        aliases:
+          - wshid-zk100
+          - wshid-spark100
+                # https://docs.docker.com/compose/networking/#specify-custom-network
+    
+  # https://docs.docker.com/engine/reference/commandline/volume_create/#related-commands
+  # driver의 의미 : http://tech.cloudz-labs.io/posts/docker/volume/
+  # nfs, aws s3 등 다양한 드라이버 모듈이 존재할 수 있음
+
+networks:
+  kafkanet:
