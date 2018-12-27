@@ -4,7 +4,7 @@ import java.util.Calendar
 
 import org.apache.spark.sql.{Dataset, Row, SparkSession}
 import org.apache.spark.sql.catalyst.ScalaReflection
-import org.apache.spark.sql.types.StructType
+import org.apache.spark.sql.types.{StructField, StructType}
 import org.apache.spark.{SparkConf, SparkContext}
 import org.slf4j.{Logger, LoggerFactory}
 
@@ -34,7 +34,7 @@ object SparkSetting {
     sparkBeforeMaster
   }
 
-  def makeDataSet(spark: SparkSession, loadPath: String): Dataset[Row] = {
+  def makeDataSet(spark: SparkSession, loadPath: String, isHeader: Boolean = false, schemaType: StructType = schemaBlackFriday): Dataset[Row] = {
 
     logger.info(s"load Path : $loadPath $LOGGER_TAIL ");
     /*spark.read
@@ -46,9 +46,25 @@ object SparkSetting {
       .as(DEFAULT_APP_NAME)
     //.repartition(8) // partition을 임의로 나눠본다 2배 // 더 느려짐
     // .repartition(partitions)*/
-    spark.read
-      .csv(loadPath)
-      .as(DEFAULT_APP_NAME)
+
+    //    spark.read
+    //      .csv(loadPath)
+    //      .as(DEFAULT_APP_NAME)
+
+    if (isHeader) {
+      spark.read
+        .format("csv")
+        .option("header", "true")
+        .load(loadPath)
+        .as(DEFAULT_APP_NAME)
+    } else { // is not include header
+      spark.read
+        .format("csv")
+        .option("header", "false")
+        .schema(schemaBlackFriday)
+        .load(loadPath)
+        .as(DEFAULT_APP_NAME)
+    }
   }
 
   /**
