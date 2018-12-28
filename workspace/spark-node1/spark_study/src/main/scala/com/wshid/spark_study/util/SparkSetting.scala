@@ -136,7 +136,9 @@ object SparkSetting {
     list match {
       case Nil => map
       case "--run-type" :: value :: tail =>
-        nextOption(map ++ Map('runType -> value), tail)
+        nextOption(map ++ Map(SYMBOL_RUN_TYPE -> value), tail)
+      case "--raw-file" :: value :: tail =>
+        nextOption(map ++ Map('rawFile -> value), tail)
       //        case "--min-size" :: value :: tail =>
       //          nextOption(map ++ Map('minsize -> value.toInt), tail)
       //        case string :: opt2 :: tail

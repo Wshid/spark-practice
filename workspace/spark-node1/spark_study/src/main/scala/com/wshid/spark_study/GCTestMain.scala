@@ -34,16 +34,12 @@ object GCTestMain {
       if (runType == RUN_TYPE_REAL) {
         logger.info(s"RUN_TYPE REAL ${LOGGER_TAIL}")
 
-        /**
-          * 서버 경로를 직접 지정하면 경로를 잡긴한다.
-          * (실제 프로젝트 파일이 올라가는 위치)
-          * contextRoot로 바꿔주어 컴파일 할 수 있도록 해야한다.
-          */
-        logger.info(s"${getClass.getResource(RAW_FILE_NAME)} ${LOGGER_TAIL}")
-        //getClass.getResource(RAW_FILE_NAME)
-        getClass.getResource(RAW_FILE_NAME).toString.replace("!", "")
-
-        //"/root/workspace/spark_study/target/classes/" + RAW_FILE_NAME
+        if (argsParse.get(SYMBOL_RAW_FILE).isDefined) {
+          argsParse.get(SYMBOL_RAW_FILE).get.toString
+        }
+        else {
+          RAW_FILE_DEFAULT_REAL
+        }
       } else if (runType == RUN_TYPE_LOCAL) {
         getClass.getResource(RAW_FILE_NAME).toString
       } else {

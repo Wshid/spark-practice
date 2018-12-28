@@ -17,11 +17,13 @@ object SparkConstants {
 
   val RAW_FILE_NAME: String = "/BlackFriday.csv";
   val RAW_FILE_NAME_HEADLESS: String = "/BlackFriday.headerless.csv";
+  val RAW_FILE_DEFAULT_REAL: String = "/root/workspace/raw_files" + RAW_FILE_NAME
 
   val DEFAULT_APP_NAME: String = "SPARK_STUDY"
   val CHAR_EXCLAMATION_MARK: String = "!"
 
   val SYMBOL_RUN_TYPE : Symbol = 'runType
+  val SYMBOL_RAW_FILE : Symbol = 'rawFile
   val RUN_TYPE_REAL: String = "real"
   val RUN_TYPE_LOCAL: String = "local"
 
