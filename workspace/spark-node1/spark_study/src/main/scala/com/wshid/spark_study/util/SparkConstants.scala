@@ -19,6 +19,11 @@ object SparkConstants {
   val RAW_FILE_NAME_HEADLESS: String = "/BlackFriday.headerless.csv";
 
   val DEFAULT_APP_NAME: String = "SPARK_STUDY"
+  val CHAR_EXCLAMATION_MARK: String = "!"
+
+  val SYMBOL_RUN_TYPE : Symbol = 'runType
+  val RUN_TYPE_REAL: String = "real"
+  val RUN_TYPE_LOCAL: String = "local"
 
 
   case class BlackFriday(userId: Int, productId: String, gender: Char, age: String,
@@ -44,5 +49,12 @@ object SparkConstants {
     StructField("productCategory3", IntegerType, true),
     StructField("perchase", LongType, true)
   ))
+
+  val USAGE : String =
+    """
+      |
+      | Usage: mmlaln[-- min - size num][-- max - size num] filename
+      |
+    """.stripMargin
 
 }

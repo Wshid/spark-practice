@@ -117,4 +117,40 @@ object SparkSetting {
   }
 
 
+  def argumentParser(args: Array[String]): Map[Symbol, Any] = {
+    if (args.length == 0) {
+      logger.error(USAGE)
+      System.exit(0) // JAVA METHOD
+    }
+    val arglist = args.toList
+    //type OptionMap = Map[Symbol, Any]
+
+    val options = nextOption(Map(), arglist)
+    logger.info(s"parse options ${options}")
+    options
+  }
+
+  def nextOption(map: Map[Symbol, Any], list: List[String]): Map[Symbol, Any] = {
+    def isSwitch(s: String) = (s(0) == '-')
+
+    list match {
+      case Nil => map
+      case "--run-type" :: value :: tail =>
+        nextOption(map ++ Map('runType -> value), tail)
+      //        case "--min-size" :: value :: tail =>
+      //          nextOption(map ++ Map('minsize -> value.toInt), tail)
+      //        case string :: opt2 :: tail
+      //          if isSwitch(opt2) =>
+      //          nextOption(map ++ Map('infile -> string), list.tail)
+      case string :: Nil => nextOption(map ++ Map('other -> string), list.tail)
+      case option :: tail => map
+
+      /**
+        * Argument Parser부터 작업진행
+        * REAL과 local 분리
+        */
+    }
+  }
+
+
 }

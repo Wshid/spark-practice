@@ -23,9 +23,13 @@ ENV SPARK_TAR spark-2.4.0-bin-hadoop2.7.tgz
 ENV SPARK_DIR spark-2.4.0-bin-hadoop2.7
 ENV SPARK_HOME ${PACKAGES}/spark
 
+#ENV_SCALA
+ENV SCALA_LINK https://downloads.lightbend.com/scala/2.11.8/scala-2.11.8.rpm
+ENV SCALA_RPM scala-2.11.8.rpm
+
 
 # PATH
-ENV PATH $KAFKA_HOME/bin:${ZOOKEEPER_HOME}/bin:$PATH
+ENV PATH $SPARK_HOME/bin:$KAFKA_HOME/bin:${ZOOKEEPER_HOME}/bin:$PATH
 RUN echo "alias vi=vim" >> /etc/bashrc
 
 RUN mkdir ${PACKAGES}
@@ -66,7 +70,6 @@ RUN mkdir /data
 RUN touch /data/myid
 RUN echo "==== PLZ setting myid File(/data/myid)"
 
-
 # Kafka Install
 WORKDIR ${PACKAGES}
 RUN wget ${KAFKA_LINK}
@@ -74,9 +77,13 @@ RUN tar -xzvf ${KAFKA_TAR}
 RUN ln -s ${KAFKA_DIR} kafka
 RUN mkdir /data1 /data2
 
-
 # Spark Install
 WORKDIR ${PACKAGES}
 RUN wget ${SPARK_LINK}
 RUN tar -xzvf ${SPARK_TAR}
 RUN ln -s ${SPARK_DIR} spark
+
+# Scala 2.11 Install(https://www.vultr.com/docs/how-to-install-scala-on-centos-7)
+WORKDIR ${PACKAGES} 
+RUN wget https://downloads.lightbend.com/scala/2.11.8/scala-2.11.8.rpm
+RUN yum install ${SCALA_RPM} -y
