@@ -1,7 +1,7 @@
 version: '3.1' 
 services:
   node1:
-    image: spark-practice
+    image: spark-practice-image:1.0
     container_name: spark-node1
     hostname: spark-node1 
     command: bash
