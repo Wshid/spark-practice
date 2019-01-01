@@ -10,7 +10,6 @@ import org.scalatest.FunSuite
 class SparkSettingTest extends FunSuite {
 
   test("testArgumentParser") {
-    println(SparkSetting.argumentParser(Array("--run-type","3","abcde")));
+    println(SparkSetting.argumentParser(Array("--run-type", "3", "abcde")));
   }
-
 }
